@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dayananda Sagar University</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              dsu: {
+                blue: '#002147', // Deep academic navy
+                cyan: '#009fe3', // The bright navigation blue
+                lightBlue: '#0056b3',
+                gold: '#ffd200', // The bright yellow/gold
+                goldHover: '#e0ac1c',
+                gray: '#f4f4f4',
+                red: '#e31e24', // Apply Now Red
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body { font-family: 'Inter', sans-serif; }
+      html { scroll-behavior: smooth; }
+      .writing-vertical-rl { writing-mode: vertical-rl; }
+      /* Utility for hiding scrollbar */
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      
+      /* Fade animations */
+      .fade-in { animation: fadeIn 0.3s ease-in-out; }
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+      
+      .slide-up { animation: slideUp 0.4s ease-out; }
+      @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-white text-gray-900 selection:bg-dsu-gold selection:text-dsu-blue flex flex-col min-h-screen">
+
+    <!-- HEADER -->
+    <header class="w-full z-50 relative bg-white" id="main-header">
+      <!-- Top Row -->
+      <div class="container mx-auto px-4 py-2">
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between">
+          <!-- Logo -->
+          <div class="flex items-center mb-4 lg:mb-0 cursor-pointer" onclick="navigateTo('home')">
+             <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Dayananda_Sagar_University_logo.png/200px-Dayananda_Sagar_University_logo.png" referrerpolicy="no-referrer" alt="Dayananda Sagar University Logo" class="h-20 lg:h-24 w-auto object-contain">
+          </div>
+          
+          <!-- Right Content -->
+          <div class="flex flex-col items-end space-y-2">
+            <!-- Search -->
+            <div class="hidden lg:flex w-full justify-end mb-1">
+              <div class="flex bg-dsu-cyan rounded-sm overflow-hidden">
+                <input type="text" placeholder="Search ..." class="bg-dsu-cyan text-white placeholder-blue-100 px-3 py-1 text-sm outline-none w-48">
+                <button class="bg-dsu-lightBlue text-white px-3 py-1 text-xs font-bold uppercase border-l border-blue-400">Search</button>
+              </div>
+            </div>
+            <!-- Top Links -->
+            <div class="hidden lg:flex flex-wrap justify-end items-center gap-1 text-[11px] lg:text-[12px] font-medium text-gray-600">
+               <a href="#" onclick="handleNavClick(event, 'university')" class="px-2 py-1 hover:text-dsu-blue bg-dsu-gold text-black font-bold hover:bg-yellow-400 uppercase">CAREERS</a>
+               <span class="text-gray-300">|</span>
+               <a href="#" onclick="handleNavClick(event, 'virtual-tour')" class="px-2 py-1 hover:text-dsu-blue uppercase">Virtual Tour</a>
+               <span class="text-gray-300">|</span>
+               <a href="#" onclick="handleNavClick(event, 'academics')" class="px-2 py-1 hover:text-dsu-blue uppercase">Examination</a>
+               <span class="text-gray-300">|</span>
+               <a href="#news" class="px-2 py-1 hover:text-dsu-blue uppercase">News & Events</a>
+               <span class="text-gray-300">|</span>
+               <a href="#" onclick="handleNavClick(event, 'university')" class="px-2 py-1 hover:text-dsu-blue uppercase">Newsletter</a>
+               <span class="text-gray-300">|</span>
+               <a href="#" onclick="handleNavClick(event, 'placement')" class="px-2 py-1 hover:text-dsu-blue uppercase">Alumni</a>
+               <span class="text-gray-300">|</span>
+               <a href="#" class="px-2 py-1 hover:text-dsu-blue uppercase">Blog</a>
+               <span class="text-gray-300">|</span>
+               <a href="#" class="px-2 py-1 hover:text-dsu-blue uppercase">ERP Login</a>
+               <span class="text-gray-300">|</span>
+               <a href="#" onclick="handleNavClick(event, 'admissions')" class="px-2 py-1 hover:text-dsu-blue uppercase">e-Brochure</a>
+               <span class="text-gray-300">|</span>
+               <a href="#" onclick="handleNavClick(event, 'international')" class="px-2 py-1 hover:text-dsu-blue bg-dsu-gold text-black font-bold hover:bg-yellow-400 uppercase">NRI/FOREIGN ADMISSIONS - APPLY HERE</a>
+               <div class="ml-2 border border-gray-300 rounded px-1 py-0.5 text-xs flex items-center">
+                 English <i data-lucide="chevron-down" class="ml-1 w-3 h-3"></i>
+               </div>
+            </div>
+          </div>
+          
+          <!-- Mobile Menu Button -->
+          <div class="absolute right-4 top-8 lg:hidden">
+            <button onclick="toggleMobileMenu()" class="text-dsu-blue">
+              <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Navbar (Cyan) -->
+      <div id="sticky-nav" class="bg-dsu-cyan w-full relative z-40 transition-all duration-300">
+        <div class="container mx-auto px-4">
+          <nav class="hidden xl:flex items-center justify-between" id="desktop-nav">
+             <!-- Links generated by JS -->
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- FLOATING ACTIONS -->
+    <div class="fixed right-0 top-1/3 z-50 hidden md:flex flex-col shadow-2xl">
+      <button onclick="openApplyModal()" class="bg-dsu-red text-white w-12 py-6 flex items-center justify-center hover:bg-red-700 transition-colors relative group">
+        <span class="writing-vertical-rl text-sm font-bold tracking-wider rotate-180 whitespace-nowrap">APPLY NOW</span>
+        <div class="absolute right-full top-0 h-full bg-dsu-red text-white px-3 flex items-center opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Start Application</div>
+      </button>
+      <a href="tel:+918042161759" class="bg-orange-500 text-white w-12 h-12 flex items-center justify-center hover:bg-orange-600 transition-colors relative group">
+        <i data-lucide="phone" class="w-5 h-5"></i>
+        <div class="absolute right-full top-0 h-full bg-orange-500 text-white px-3 flex items-center opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Call Us</div>
+      </a>
+      <a href="https://wa.me/918042161759" target="_blank" class="bg-green-500 text-white w-12 h-12 flex items-center justify-center hover:bg-green-600 transition-colors relative group">
+        <i data-lucide="message-circle" class="w-5 h-5"></i>
+        <div class="absolute right-full top-0 h-full bg-green-500 text-white px-3 flex items-center opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">WhatsApp</div>
+      </a>
+      <a href="#" onclick="handleNavClick(event, 'virtual-tour')" class="bg-pink-700 text-white w-12 h-12 flex items-center justify-center hover:bg-pink-800 transition-colors relative group">
+        <i data-lucide="globe" class="w-5 h-5"></i>
+        <div class="absolute right-full top-0 h-full bg-pink-700 text-white px-3 flex items-center opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Virtual Tour</div>
+      </a>
+    </div>
+
+    <!-- MAIN CONTENT AREA -->
+    <div id="app-content" class="flex-grow">
+      <!-- Views will be injected here -->
+      
+      <!-- HOME VIEW -->
+      <div id="view-home" class="fade-in">
+         
+         <!-- HERO -->
+         <section id="hero" class="relative bg-dsu-blue overflow-hidden">
+            <div class="absolute inset-0 z-0">
+               <img src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1920&auto=format&fit=crop" class="w-full h-full object-cover opacity-20">
+            </div>
+            <div class="container mx-auto px-4 relative z-10 py-12 lg:py-20">
+               <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
+                  <div class="flex-1 max-w-2xl">
+                     <h1 class="leading-tight mb-2">
+                        <span class="block text-6xl lg:text-8xl font-extrabold text-dsu-gold">B.Tech</span>
+                        <span class="block text-4xl lg:text-6xl font-bold text-white">Admissions 2026 - 27</span>
+                     </h1>
+                     <div class="bg-white transform -skew-x-12 inline-block px-6 py-3 mb-8 border-l-8 border-dsu-gold shadow-lg">
+                        <div class="transform skew-x-12 text-center">
+                           <h3 class="text-dsu-blue font-extrabold text-xl lg:text-2xl">Prestigious Merit Scholarship</h3>
+                           <p class="text-dsu-blue font-bold text-lg">Based on JEE Scores</p>
+                        </div>
+                     </div>
+                     <button onclick="openApplyModal()" class="bg-dsu-lightBlue hover:bg-blue-600 text-white text-xl font-bold py-3 px-8 rounded-full flex items-center shadow-lg transition-transform transform hover:scale-105">
+                        Apply Now <i data-lucide="arrow-up-right" class="ml-2 bg-white text-dsu-lightBlue rounded-full p-0.5 w-6 h-6"></i>
+                     </button>
+                  </div>
+                  <div class="flex-1 w-full relative flex flex-col items-end z-20">
+                     <p class="text-dsu-gold text-xl lg:text-2xl font-bold max-w-md ml-auto leading-snug text-right mb-6">
+                        B.Tech Admissions for 2026 - 27 <br/> <span class="text-white">are based on the key scores of below Entrance Exams</span>
+                     </p>
+                     <div class="space-y-3 mb-8 w-full max-w-sm ml-auto">
+                        <div class="flex items-center justify-between border-2 border-white rounded-full px-4 py-2 hover:bg-white/10 cursor-default">
+                           <span class="text-white font-black text-xl tracking-wider">IIT JEE</span>
+                           <i data-lucide="check-circle-2" class="text-white fill-black w-7 h-7"></i>
+                        </div>
+                        <div class="flex items-center justify-between border-2 border-white rounded-full px-4 py-2 hover:bg-white/10 cursor-default">
+                           <span class="text-white font-black text-xl tracking-wider">COMED-K</span>
+                           <i data-lucide="check-circle-2" class="text-white fill-black w-7 h-7"></i>
+                        </div>
+                        <div class="flex items-center justify-between border-2 border-white rounded-full px-4 py-2 hover:bg-white/10 cursor-default">
+                           <span class="text-white font-black text-xl tracking-wider">UNI-GAUGE</span>
+                           <i data-lucide="check-circle-2" class="text-white fill-black w-7 h-7"></i>
+                        </div>
+                        <div class="flex items-center justify-between border-2 border-white rounded-full px-4 py-2 hover:bg-white/10 cursor-default">
+                           <span class="text-white font-black text-xl tracking-wider">OTHER EXAMS</span>
+                           <i data-lucide="check-circle-2" class="text-white fill-black w-7 h-7"></i>
+                        </div>
+                     </div>
+                     <img src="https://img.freepik.com/free-photo/young-student-woman-wearing-denim-jacket-eyeglasses-holding-colorful-folders-showing-thumb-up-orange-wall_141793-46713.jpg" class="hidden lg:block absolute -bottom-20 -right-20 w-[500px] h-[600px] object-cover pointer-events-none" style="mask-image: linear-gradient(to bottom, black 80%, transparent 100%)">
+                  </div>
+               </div>
+               <div class="mt-12 text-right lg:mr-32 relative z-20">
+                 <p class="text-dsu-gold font-serif italic text-2xl">Your First Step Towards <br/><span class="text-3xl not-italic font-bold text-white font-sans">Transformative Engineering!</span></p>
+               </div>
+            </div>
+         </section>
+
+         <!-- AWARDS STRIP -->
+         <div class="bg-white py-4 border-b border-gray-200">
+            <div class="container mx-auto px-4">
+               <div class="flex flex-wrap justify-center lg:justify-between items-center gap-8 opacity-80 grayscale hover:grayscale-0 transition-all duration-500">
+                  <div class="flex items-center gap-2 border-r border-gray-300 pr-6"><div class="bg-dsu-blue text-white p-1 text-xs font-bold">ICARE</div><div class="text-xs font-bold">RATINGS<br/>KSURF</div></div>
+                  <div class="flex items-center gap-2 border-r border-gray-300 pr-6"><div class="text-xs font-bold text-center">EDUCATIONAL<br/>EXCELLENCE<br/>AWARDS</div></div>
+                  <div class="flex items-center gap-2 border-r border-gray-300 pr-6"><div class="bg-red-600 text-white p-1 text-xs font-bold">TIMES</div><div class="text-xs font-bold text-center">BUSINESS<br/>AWARDS</div></div>
+                  <div class="flex items-center gap-2 border-r border-gray-300 pr-6"><div class="text-xs font-bold text-red-600">siliconindia</div><div class="text-xs font-bold">B SCHOOL</div><div class="bg-gray-200 px-1 text-xs font-bold">A+++</div></div>
+                  <div class="flex items-center gap-2"><div class="text-dsu-blue font-black text-lg">IIRF-2023</div><div class="text-[10px] font-bold">NATIONAL RANK-10<br/><span class="text-red-600">SOUTH ZONE RANK-4</span></div></div>
+               </div>
+            </div>
+         </div>
+
+         <!-- ACCREDITATIONS -->
+         <section id="accreditations" class="py-12 bg-gray-50 border-t border-gray-200">
+            <div class="container mx-auto px-4 text-center">
+               <p class="text-gray-500 uppercase tracking-widest text-sm font-semibold mb-8">Recognized by Premier Institutions</p>
+               <div class="flex flex-wrap justify-center gap-8 lg:gap-16 opacity-80">
+                  <div class="flex flex-col items-center"><div class="h-16 w-32 bg-white border rounded-lg flex items-center justify-center font-bold text-gray-700 shadow-sm">NAAC A+</div><span class="text-[10px] text-gray-400 mt-2 uppercase font-medium">Accredited</span></div>
+                  <div class="flex flex-col items-center"><div class="h-16 w-32 bg-white border rounded-lg flex items-center justify-center font-bold text-gray-700 shadow-sm">NBA</div><span class="text-[10px] text-gray-400 mt-2 uppercase font-medium">Programs</span></div>
+                  <div class="flex flex-col items-center"><div class="h-16 w-32 bg-white border rounded-lg flex items-center justify-center font-bold text-gray-700 shadow-sm">DSIR</div><span class="text-[10px] text-gray-400 mt-2 uppercase font-medium">Recognized</span></div>
+                  <div class="flex flex-col items-center"><div class="h-16 w-32 bg-white border rounded-lg flex items-center justify-center font-bold text-gray-700 shadow-sm">AICTE</div><span class="text-[10px] text-gray-400 mt-2 uppercase font-medium">Approved</span></div>
+               </div>
+            </div>
+         </section>
+
+         <!-- ADMISSIONS INFO -->
+         <section id="admissions" class="py-16 lg:py-24 bg-white relative">
+            <div class="container mx-auto px-4">
+               <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                  <!-- Form -->
+                  <div class="bg-blue-50 rounded-3xl p-8 lg:p-10 border border-blue-100 shadow-lg relative overflow-hidden">
+                     <h2 class="text-3xl font-bold text-dsu-blue mb-2">Admissions Open <span class="text-dsu-lightBlue">2026-27</span></h2>
+                     <p class="text-gray-600 mb-6 text-sm">Fill out the form below to enquire about eligibility and scholarship opportunities.</p>
+                     <form onsubmit="handleEnquirySubmit(event)" id="enquiry-form" class="space-y-4 relative z-10">
+                        <input type="text" name="name" required placeholder="Full Name" class="w-full px-4 py-3 rounded-lg bg-slate-400 text-white placeholder-gray-100 outline-none">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                           <input type="email" name="email" required placeholder="Email Address" class="w-full px-4 py-3 rounded-lg bg-slate-400 text-white placeholder-gray-100 outline-none">
+                           <input type="tel" name="phone" required placeholder="Phone Number" class="w-full px-4 py-3 rounded-lg bg-slate-400 text-white placeholder-gray-100 outline-none">
+                        </div>
+                        <select name="course" required class="w-full px-4 py-3 rounded-lg bg-slate-400 text-white outline-none">
+                           <option value="" disabled selected class="text-gray-300">Select Program</option>
+                           <option value="btech_cse" class="text-black">B.Tech - CSE</option>
+                           <option value="btech_ai" class="text-black">B.Tech - AI</option>
+                           <option value="mba" class="text-black">MBA</option>
+                        </select>
+                        <button type="submit" class="w-full bg-dsu-gold text-dsu-blue font-bold py-3 rounded-lg hover:bg-yellow-400 transition-colors flex justify-center items-center">
+                           Submit Enquiry <i data-lucide="send" class="ml-2 w-4 h-4"></i>
+                        </button>
+                     </form>
+                  </div>
+                  <!-- Content -->
+                  <div class="lg:pl-8 pt-8">
+                     <div class="inline-flex items-center gap-2 px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm font-medium mb-6">
+                        <i data-lucide="trophy" class="w-4 h-4"></i> Scholarship Opportunity
+                     </div>
+                     <h2 class="text-3xl lg:text-4xl font-bold text-dsu-blue mb-6">Prestigious Merit Scholarship Based on <span class="text-yellow-600">JEE Scores</span></h2>
+                     <p class="text-gray-600 mb-8 text-lg">DSU rewards academic excellence. High achievers in JEE Mains/Advanced are eligible for substantial tuition fee waivers.</p>
+                     <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="bg-white p-3 rounded border border-red-200 text-red-600 font-bold text-center">IIT JEE</div>
+                        <div class="bg-white p-3 rounded border border-blue-200 text-blue-600 font-bold text-center">COMED-K</div>
+                        <div class="bg-white p-3 rounded border border-purple-200 text-purple-600 font-bold text-center">UNI-GAUGE</div>
+                        <div class="bg-white p-3 rounded border border-green-200 text-green-600 font-bold text-center">KCET</div>
+                     </div>
+                     <button onclick="handleNavClick(event, 'admissions')" class="border-2 border-dsu-blue text-dsu-blue px-6 py-2.5 rounded hover:bg-dsu-blue hover:text-white transition-colors font-semibold">View Scholarship Details</button>
+                  </div>
+               </div>
+            </div>
+         </section>
+
+         <!-- FEATURES -->
+         <section id="features" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+               <div class="text-center mb-12"><h2 class="text-3xl font-bold text-dsu-blue mb-4">Why Choose DSU?</h2><div class="w-16 h-1 bg-dsu-gold mx-auto"></div></div>
+               <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  <!-- Feature 1 -->
+                  <div class="group bg-white rounded-2xl shadow hover:shadow-xl transition-all overflow-hidden">
+                     <div class="h-48 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-white p-2 rounded-lg text-dsu-blue"><i data-lucide="lightbulb" class="w-6 h-6"></i></div>
+                     </div>
+                     <div class="p-6">
+                        <h3 class="text-xl font-bold text-dsu-blue mb-3">Research Excellence</h3>
+                        <p class="text-gray-600 text-sm mb-4">Cutting-edge labs and funding for innovative projects across biotechnology and engineering.</p>
+                        <button onclick="handleNavClick(event, 'research')" class="text-dsu-gold font-semibold text-sm hover:underline flex items-center">Learn More <i data-lucide="arrow-right" class="ml-1 w-3 h-3"></i></button>
+                     </div>
+                  </div>
+                  <!-- Feature 2 -->
+                  <div class="group bg-white rounded-2xl shadow hover:shadow-xl transition-all overflow-hidden">
+                     <div class="h-48 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-white p-2 rounded-lg text-dsu-blue"><i data-lucide="globe" class="w-6 h-6"></i></div>
+                     </div>
+                     <div class="p-6">
+                        <h3 class="text-xl font-bold text-dsu-blue mb-3">Global Collaborations</h3>
+                        <p class="text-gray-600 text-sm mb-4">Partnerships with 50+ international universities providing exchange programs.</p>
+                        <button onclick="handleNavClick(event, 'international')" class="text-dsu-gold font-semibold text-sm hover:underline flex items-center">Learn More <i data-lucide="arrow-right" class="ml-1 w-3 h-3"></i></button>
+                     </div>
+                  </div>
+                  <!-- Feature 3 -->
+                  <div class="group bg-white rounded-2xl shadow hover:shadow-xl transition-all overflow-hidden">
+                     <div class="h-48 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-white p-2 rounded-lg text-dsu-blue"><i data-lucide="users" class="w-6 h-6"></i></div>
+                     </div>
+                     <div class="p-6">
+                        <h3 class="text-xl font-bold text-dsu-blue mb-3">Vibrant Campus Life</h3>
+                        <p class="text-gray-600 text-sm mb-4">A holistic environment with sports complexes, cultural hubs, and student clubs.</p>
+                        <button onclick="handleNavClick(event, 'university')" class="text-dsu-gold font-semibold text-sm hover:underline flex items-center">Learn More <i data-lucide="arrow-right" class="ml-1 w-3 h-3"></i></button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+
+         <!-- FACILITIES -->
+         <section id="facilities" class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+               <div class="text-center mb-12"><h2 class="text-3xl font-bold text-dsu-blue mb-4">Campus Facilities</h2><div class="w-16 h-1 bg-dsu-gold mx-auto"></div></div>
+               <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  <div class="bg-blue-50 rounded-3xl overflow-hidden shadow-lg border border-blue-100 flex flex-col group">
+                     <div class="h-72 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute bottom-6 left-6 text-white">
+                           <h3 class="text-3xl font-bold">S Residences</h3><p class="text-gray-200">Hostel @ Harohalli</p>
+                        </div>
+                     </div>
+                     <div class="p-8 flex-grow flex flex-col">
+                        <p class="text-gray-600 mb-6">Premium, secure accommodation designed for academic focus.</p>
+                        <button onclick="handleNavClick(event, 'hostel')" class="border border-dsu-blue text-dsu-blue px-4 py-2 rounded self-start hover:bg-dsu-blue hover:text-white transition-colors">View Details</button>
+                     </div>
+                  </div>
+                  <div class="bg-blue-50 rounded-3xl overflow-hidden shadow-lg border border-blue-100 flex flex-col group">
+                     <div class="h-72 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute bottom-6 left-6 text-white">
+                           <h3 class="text-3xl font-bold">Transport Services</h3><p class="text-gray-200">Connecting Bengaluru</p>
+                        </div>
+                     </div>
+                     <div class="p-8 flex-grow flex flex-col">
+                        <p class="text-gray-600 mb-6">Comprehensive fleet of buses connecting the city to campus safely.</p>
+                        <button onclick="handleNavClick(event, 'facilities')" class="border border-dsu-blue text-dsu-blue px-4 py-2 rounded self-start hover:bg-dsu-blue hover:text-white transition-colors">View Routes</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+
+         <!-- STATS -->
+         <section id="stats" class="py-16 bg-dsu-blue text-white relative">
+            <div class="container mx-auto px-4 relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center divide-x divide-blue-800/50">
+               <div class="flex flex-col items-center"><span class="text-4xl lg:text-5xl font-bold mb-2">60+</span><span class="text-sm uppercase tracking-wider text-gray-300">Years of Legacy</span></div>
+               <div class="flex flex-col items-center"><span class="text-4xl lg:text-5xl font-bold mb-2">150+</span><span class="text-sm uppercase tracking-wider text-gray-300">Programs</span></div>
+               <div class="flex flex-col items-center"><span class="text-4xl lg:text-5xl font-bold mb-2">25k+</span><span class="text-sm uppercase tracking-wider text-gray-300">Students</span></div>
+               <div class="flex flex-col items-center"><span class="text-4xl lg:text-5xl font-bold mb-2">95%</span><span class="text-sm uppercase tracking-wider text-gray-300">Placement</span></div>
+            </div>
+         </section>
+
+         <!-- NEWS -->
+         <section id="news" class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+               <div class="flex justify-between items-end mb-10">
+                  <div><h2 class="text-3xl font-bold text-dsu-blue mb-2">News & Events</h2><div class="w-16 h-1 bg-dsu-gold"></div></div>
+                  <button class="hidden md:block border border-dsu-blue text-dsu-blue px-4 py-2 rounded hover:bg-gray-50">View All</button>
+               </div>
+               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <!-- News 1 -->
+                  <div class="group border border-gray-100 rounded-xl shadow-sm hover:shadow-xl transition-all">
+                     <div class="h-48 overflow-hidden rounded-t-xl relative"><img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600" class="w-full h-full object-cover group-hover:scale-110 transition-transform"><div class="absolute top-3 left-3 bg-dsu-gold text-dsu-blue text-xs font-bold px-2 py-1 rounded">AWARDS</div></div>
+                     <div class="p-5"><div class="text-xs text-gray-400 mb-2">Oct 15, 2023</div><h3 class="font-bold text-gray-800 mb-2 line-clamp-2">DSU Ranked Among Top Emerging Universities</h3><button onclick="handleNavClick(event, 'university')" class="text-dsu-blue text-sm font-semibold hover:text-dsu-gold">Read More →</button></div>
+                  </div>
+                  <!-- News 2 -->
+                  <div class="group border border-gray-100 rounded-xl shadow-sm hover:shadow-xl transition-all">
+                     <div class="h-48 overflow-hidden rounded-t-xl relative"><img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=600" class="w-full h-full object-cover group-hover:scale-110 transition-transform"><div class="absolute top-3 left-3 bg-dsu-gold text-dsu-blue text-xs font-bold px-2 py-1 rounded">EVENTS</div></div>
+                     <div class="p-5"><div class="text-xs text-gray-400 mb-2">Oct 10, 2023</div><h3 class="font-bold text-gray-800 mb-2 line-clamp-2">International Conference on AI & Robotics</h3><button onclick="handleNavClick(event, 'research')" class="text-dsu-blue text-sm font-semibold hover:text-dsu-gold">Read More →</button></div>
+                  </div>
+                   <!-- News 3 -->
+                   <div class="group border border-gray-100 rounded-xl shadow-sm hover:shadow-xl transition-all">
+                     <div class="h-48 overflow-hidden rounded-t-xl relative"><img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600" class="w-full h-full object-cover group-hover:scale-110 transition-transform"><div class="absolute top-3 left-3 bg-dsu-gold text-dsu-blue text-xs font-bold px-2 py-1 rounded">ADMISSIONS</div></div>
+                     <div class="p-5"><div class="text-xs text-gray-400 mb-2">Sep 28, 2023</div><h3 class="font-bold text-gray-800 mb-2 line-clamp-2">Admissions Open for 2026-27 Academic Year</h3><button onclick="handleNavClick(event, 'admissions')" class="text-dsu-blue text-sm font-semibold hover:text-dsu-gold">Read More →</button></div>
+                  </div>
+                   <!-- News 4 -->
+                   <div class="group border border-gray-100 rounded-xl shadow-sm hover:shadow-xl transition-all">
+                     <div class="h-48 overflow-hidden rounded-t-xl relative"><img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=600" class="w-full h-full object-cover group-hover:scale-110 transition-transform"><div class="absolute top-3 left-3 bg-dsu-gold text-dsu-blue text-xs font-bold px-2 py-1 rounded">ACHIEVEMENTS</div></div>
+                     <div class="p-5"><div class="text-xs text-gray-400 mb-2">Sep 20, 2023</div><h3 class="font-bold text-gray-800 mb-2 line-clamp-2">Student Innovation Wins National Hackathon</h3><button onclick="handleNavClick(event, 'innovation')" class="text-dsu-blue text-sm font-semibold hover:text-dsu-gold">Read More →</button></div>
+                  </div>
+               </div>
+            </div>
+         </section>
+      </div>
+      
+      <!-- DETAILS VIEW (Hidden) -->
+      <div id="view-details" class="hidden animate-in fade-in slide-in-from-bottom-4 bg-white min-h-screen">
+          <div class="relative h-[400px] lg:h-[500px] w-full overflow-hidden">
+             <img id="detail-image" src="" class="w-full h-full object-cover">
+             <div class="absolute inset-0 bg-gradient-to-t from-dsu-blue/90 via-dsu-blue/40 to-transparent"></div>
+             <div class="absolute bottom-0 left-0 w-full p-6 lg:p-12 z-10 container mx-auto">
+                <button onclick="navigateTo('home')" class="text-white hover:bg-white/20 mb-6 pl-0 px-4 py-2 rounded transition-all flex items-center">
+                   <i data-lucide="arrow-left" class="mr-2 w-5 h-5"></i> Back to Home
+                </button>
+                <div class="flex items-center space-x-4 mb-4 text-white/80 text-sm font-medium uppercase tracking-wider">
+                   <span id="detail-category" class="bg-dsu-gold text-dsu-blue px-3 py-1 rounded font-bold"></span>
+                </div>
+                <h1 id="detail-title" class="text-3xl lg:text-5xl font-bold text-white leading-tight max-w-4xl"></h1>
+             </div>
+          </div>
+          <div class="container mx-auto px-4 py-12 lg:py-20 grid grid-cols-1 lg:grid-cols-3 gap-12">
+             <div class="lg:col-span-2 prose prose-lg prose-blue text-gray-600 leading-relaxed">
+                <p id="detail-content" class="whitespace-pre-line"></p>
+                <h3 class="text-2xl font-bold text-dsu-blue mt-8 mb-4">Overview</h3>
+                <p>Dayananda Sagar University is committed to excellence. This page contains detailed information about the selected topic.</p>
+             </div>
+             <div class="space-y-8">
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm sticky top-24">
+                   <h3 class="text-xl font-bold text-dsu-blue mb-6 border-b border-gray-200 pb-4">Actions</h3>
+                   <div class="space-y-4">
+                      <button onclick="openApplyModal()" class="w-full bg-dsu-gold text-dsu-blue font-bold py-3 rounded shadow-lg hover:bg-yellow-400">Apply Now for 2026</button>
+                      <button class="w-full border border-dsu-blue text-dsu-blue py-2 rounded flex justify-center items-center hover:bg-blue-50"><i data-lucide="share-2" class="w-4 h-4 mr-2"></i> Share</button>
+                   </div>
+                </div>
+             </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="bg-dsu-blue text-white pt-16 pb-8">
+      <div class="container mx-auto px-4">
+         <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <div>
+               <div class="mb-6 bg-white p-2 rounded-lg inline-block"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Dayananda_Sagar_University_logo.png/200px-Dayananda_Sagar_University_logo.png" referrerpolicy="no-referrer" class="h-16 w-auto object-contain"></div>
+               <p class="text-gray-300 text-sm leading-relaxed mb-6">Empowering students with innovation, research, and excellence.</p>
+            </div>
+            <div>
+               <h3 class="text-xl font-bold text-dsu-gold mb-6">Quick Links</h3>
+               <ul class="space-y-3 text-sm text-gray-300">
+                  <li><a href="#" onclick="handleNavClick(event, 'university')" class="hover:text-white">About DSU</a></li>
+                  <li><a href="#" onclick="handleNavClick(event, 'university')" class="hover:text-white">Careers</a></li>
+                  <li><a href="#" onclick="handleNavClick(event, 'hostel')" class="hover:text-white">Campus Life</a></li>
+                  <li><a href="#" onclick="handleNavClick(event, 'research')" class="hover:text-white">Research</a></li>
+               </ul>
+            </div>
+            <div>
+               <h3 class="text-xl font-bold text-dsu-gold mb-6">Contact Us</h3>
+               <ul class="space-y-4 text-sm text-gray-300">
+                  <li class="flex"><i data-lucide="map-pin" class="mr-3 text-dsu-gold w-5 h-5"></i> Bengaluru, India</li>
+                  <li class="flex"><i data-lucide="phone" class="mr-3 text-dsu-gold w-5 h-5"></i> +91 80 4216 1759</li>
+                  <li class="flex"><i data-lucide="mail" class="mr-3 text-dsu-gold w-5 h-5"></i> admissions@dsu.edu.in</li>
+               </ul>
+            </div>
+         </div>
+         <div class="border-t border-blue-800 pt-8 text-center text-sm text-gray-400">&copy; 2025 Dayananda Sagar University. All Rights Reserved.</div>
+      </div>
+    </footer>
+
+    <!-- APPLY MODAL -->
+    <div id="apply-modal" class="hidden fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+       <div class="bg-white w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] slide-up">
+          <div class="bg-dsu-blue text-white px-6 py-4 flex justify-between items-center shrink-0">
+             <div><h2 class="text-xl font-bold">APPLICATION FORM 2026-27</h2></div>
+             <button onclick="closeApplyModal()" class="hover:bg-white/10 rounded-full p-2"><i data-lucide="x" class="w-6 h-6"></i></button>
+          </div>
+          <div class="overflow-y-auto p-6 lg:p-8 bg-gray-50 flex-grow" id="modal-body">
+             <form id="full-app-form" onsubmit="handleApplicationSubmit(event)" class="space-y-6">
+                <div class="bg-white p-6 rounded-xl border border-gray-200">
+                   <h3 class="font-bold text-lg text-dsu-blue mb-4 border-b pb-2">Personal Details</h3>
+                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <input type="text" required placeholder="First Name" class="border p-2 rounded w-full">
+                      <input type="text" required placeholder="Last Name" class="border p-2 rounded w-full">
+                      <input type="email" required placeholder="Email" class="border p-2 rounded w-full">
+                      <input type="tel" required placeholder="Phone" class="border p-2 rounded w-full">
+                   </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-200">
+                   <h3 class="font-bold text-lg text-dsu-blue mb-4 border-b pb-2">Program Selection</h3>
+                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <select class="border p-2 rounded w-full"><option>Undergraduate</option><option>Postgraduate</option></select>
+                      <select class="border p-2 rounded w-full"><option>Computer Science</option><option>Management</option></select>
+                   </div>
+                </div>
+                <div class="flex justify-end gap-4">
+                   <button type="button" onclick="closeApplyModal()" class="text-gray-500 hover:text-black">Cancel</button>
+                   <button type="submit" class="bg-dsu-gold text-dsu-blue font-bold px-6 py-2 rounded">Submit Application</button>
+                </div>
+             </form>
+             <div id="modal-success" class="hidden text-center py-10">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"><i data-lucide="check-circle-2" class="text-green-600 w-10 h-10"></i></div>
+                <h3 class="text-2xl font-bold text-dsu-blue">Submitted!</h3>
+                <p class="text-gray-600 my-4">Ref ID: <span class="font-mono bg-gray-200 px-2">APP-8923</span></p>
+                <button onclick="closeApplyModal()" class="bg-dsu-blue text-white px-6 py-2 rounded">Close</button>
+             </div>
+          </div>
+       </div>
+    </div>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div id="mobile-menu" class="hidden fixed inset-0 z-[60] bg-white overflow-y-auto">
+       <div class="p-4 flex justify-between items-center border-b sticky top-0 bg-white">
+          <span class="text-dsu-blue font-bold text-lg">Menu</span>
+          <button onclick="toggleMobileMenu()" class="p-2"><i data-lucide="x" class="w-6 h-6"></i></button>
+       </div>
+       <div class="p-4" id="mobile-links">
+          <!-- Populated by JS -->
+       </div>
+    </div>
+
+    <script>
+      // --- DATA ---
+      const NAV_LINKS = [
+        { label: 'HOME', href: '#', id: 'home' },
+        { label: 'UNIVERSITY', href: '#', id: 'university', children: ['Overview', 'Vision', 'Leadership'] },
+        { label: 'ACADEMICS', href: '#', id: 'academics', children: ['Engineering', 'Management', 'Sciences', 'Health'] },
+        { label: 'ADMISSIONS', href: '#', id: 'admissions', children: ['Apply Now', 'Eligibility', 'Scholarships'] },
+        { label: 'INTERNATIONAL', href: '#', id: 'international' },
+        { label: 'RESEARCH', href: '#', id: 'research', children: ['Centers', 'Ph.D Program'] },
+        { label: 'INNOVATION', href: '#', id: 'innovation' },
+        { label: 'PLACEMENT', href: '#', id: 'placement' },
+        { label: 'NAAC', href: '#', id: 'naac' },
+        { label: 'LIBRARY', href: '#', id: 'library' },
+        { label: 'HOSTEL', href: '#', id: 'hostel' },
+        { label: 'CONTACT', href: '#contact' },
+      ];
+
+      const PAGE_CONTENT = {
+        'university': { title: "About Dayananda Sagar University", category: "University", content: "Dayananda Sagar University (DSU) is a private university located in Bengaluru, Karnataka, India. Established in 2014, it builds on a legacy of over six decades of educational excellence.\n\nOur Vision is to be a center of excellence in education, research & training, and innovation. We offer a diverse range of programs across Engineering, Management, Science, Arts, and Health Sciences.", image: "https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1920" },
+        'academics': { title: "Academic Excellence", category: "Academics", content: "DSU offers a comprehensive range of Undergraduate, Postgraduate, and Doctoral programs. Our curriculum is industry-aligned and fosters critical thinking and practical skills.\n\nSchools:\n- School of Engineering\n- School of Commerce & Management\n- School of Basic & Applied Sciences\n- School of Health Sciences", image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1920" },
+        'admissions': { title: "Admission Process 2026-27", category: "Admissions", content: "Admissions are open for the academic year 2026-27. Admission is primarily based on merit and performance in entrance examinations like DSAT, JEE Mains, CET, and COMED-K.\n\nScholarships are available for meritorious students, including 100% tuition waivers for top rankers.", image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1920" },
+        'international': { title: "International Relations", category: "Global", content: "DSU welcomes students from across the globe. Our International Student Cell ensures a smooth transition with support for visas, accommodation, and cultural integration.\n\nWe have collaborations with over 50 universities worldwide.", image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1920" },
+        'research': { title: "Research & Innovation", category: "Research", content: "Research is integral to DSU. We have established advanced research centers in areas like IoT, AI, Pharma, and Genomics.\n\nOur Ph.D. programs attract scholars from diverse fields.", image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1920" },
+        'innovation': { title: "Innovation Council", category: "Innovation", content: "The Innovation Council and Incubation Center at DSU support student startups with mentorship, funding, and resources. Supported by NITI Aayog.", image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1920" },
+        'placement': { title: "Training & Placement", category: "Career", content: "DSU has an excellent placement record with over 95% placement for eligible students. Top recruiters visit our campus annually offering lucrative packages.", image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1920" },
+        'naac': { title: "Accreditation", category: "Quality", content: "DSU is accredited by NAAC and recognized by UGC and AICTE. We consistently rank among the top emerging universities in India.", image: "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?q=80&w=1920" },
+        'library': { title: "Central Library", category: "Facilities", content: "A state-of-the-art library with over 100,000 books, digital resources, and quiet study zones.", image: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1920" },
+        'hostel': { title: "Hostel @ Harohalli", category: "Campus Life", content: "S Residences offers world-class living facilities with modern amenities, nutritious food, and 24/7 security.", image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=1920" },
+        'facilities': { title: "Campus Facilities", category: "Infrastructure", content: "From transport to sports complexes, DSU provides everything needed for a fulfilling student life.", image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=1920" },
+        'virtual-tour': { title: "Virtual Campus Tour", category: "Experience", content: "Explore our campus labs, classrooms, and recreational areas virtually.", image: "https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1920" }
+      };
+
+      // --- INITIALIZATION ---
+      document.addEventListener('DOMContentLoaded', () => {
+        lucide.createIcons();
+        renderDesktopNav();
+        renderMobileNav();
+      });
+
+      // --- RENDERERS ---
+      function renderDesktopNav() {
+        const nav = document.getElementById('desktop-nav');
+        let html = '';
+        NAV_LINKS.forEach(link => {
+           if(link.label === 'HOME') {
+              html += `<a href="#" onclick="navigateTo('home')" class="block px-3 py-4 text-[13px] font-bold text-white hover:bg-dsu-blue/20 uppercase tracking-wide cursor-pointer">${link.label}</a>`;
+           } else {
+              let dropdown = '';
+              if (link.children) {
+                 dropdown = `<div class="absolute left-0 top-full w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all bg-white shadow-xl border-t-4 border-dsu-gold z-50">
+                    ${link.children.map(c => `<a href="#" onclick="handleNavClick(event, '${link.id}')" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 border-b border-gray-50">${c}</a>`).join('')}
+                 </div>`;
+              }
+              html += `<div class="relative group">
+                 <a href="#" onclick="handleNavClick(event, '${link.id}')" class="block px-3 py-4 text-[13px] font-bold text-white hover:bg-dsu-blue/20 uppercase tracking-wide whitespace-nowrap cursor-pointer">${link.label}</a>
+                 ${dropdown}
+              </div>`;
+           }
+        });
+        nav.innerHTML = html;
+      }
+
+      function renderMobileNav() {
+         const container = document.getElementById('mobile-links');
+         let html = '';
+         NAV_LINKS.forEach(link => {
+            html += `<div class="border-b border-gray-50 py-3">
+               <a href="#" onclick="handleNavClick(event, '${link.id}'); toggleMobileMenu();" class="block text-dsu-blue font-bold text-sm uppercase">${link.label}</a>
+            </div>`;
+         });
+         container.innerHTML = html;
+      }
+
+      // --- NAVIGATION LOGIC ---
+      function navigateTo(pageId) {
+         window.scrollTo(0,0);
+         const homeView = document.getElementById('view-home');
+         const detailsView = document.getElementById('view-details');
+
+         if (pageId === 'home') {
+            homeView.classList.remove('hidden');
+            detailsView.classList.add('hidden');
+         } else if (PAGE_CONTENT[pageId]) {
+            const data = PAGE_CONTENT[pageId];
+            document.getElementById('detail-image').src = data.image;
+            document.getElementById('detail-category').textContent = data.category;
+            document.getElementById('detail-title').textContent = data.title;
+            document.getElementById('detail-content').textContent = data.content;
+            
+            homeView.classList.add('hidden');
+            detailsView.classList.remove('hidden');
+         }
+      }
+
+      function handleNavClick(e, pageId) {
+         e.preventDefault();
+         if (pageId === 'home') {
+             navigateTo('home');
+         } else {
+             navigateTo(pageId);
+         }
+      }
+
+      // --- UI TOGGLES ---
+      function toggleMobileMenu() {
+         const menu = document.getElementById('mobile-menu');
+         menu.classList.toggle('hidden');
+      }
+
+      function openApplyModal() {
+         document.getElementById('apply-modal').classList.remove('hidden');
+         document.getElementById('full-app-form').classList.remove('hidden');
+         document.getElementById('modal-success').classList.add('hidden');
+      }
+
+      function closeApplyModal() {
+         document.getElementById('apply-modal').classList.add('hidden');
+      }
+
+      function handleApplicationSubmit(e) {
+         e.preventDefault();
+         // Simulate API
+         const btn = e.target.querySelector('button[type="submit"]');
+         const origText = btn.textContent;
+         btn.textContent = "Processing...";
+         btn.disabled = true;
+         
+         setTimeout(() => {
+            document.getElementById('full-app-form').classList.add('hidden');
+            document.getElementById('modal-success').classList.remove('hidden');
+            btn.textContent = origText;
+            btn.disabled = false;
+            e.target.reset();
+         }, 1500);
+      }
+
+      function handleEnquirySubmit(e) {
+         e.preventDefault();
+         const btn = e.target.querySelector('button[type="submit"]');
+         btn.textContent = "Sent!";
+         btn.classList.add('bg-green-500');
+         setTimeout(() => {
+            btn.innerHTML = `Submit Enquiry <i data-lucide="send" class="ml-2 w-4 h-4"></i>`;
+            btn.classList.remove('bg-green-500');
+            e.target.reset();
+         }, 2000);
+      }
+
+    </script>
+  </body>
+</html>
